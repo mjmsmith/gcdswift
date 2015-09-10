@@ -165,7 +165,7 @@ public class GCDQueue {
   *  Schedules a block to be submitted to the queue when a group of previously submitted blocks have completed.
   *
   *  - parameter block: The block to submit when the group completes.
-  *  - parameter forGroup: The group to observe.
+  *  - parameter inGroup: The group to observe.
   *  - SeeAlso: dispatch_group_notify()
   */
   public func queueNotifyBlock(block: dispatch_block_t, inGroup group: GCDGroup) {
