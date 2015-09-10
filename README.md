@@ -13,7 +13,7 @@ __GCDSwift__ defines the same API as [GCDObjC](https://github.com/mjmsmith/gcdob
 
 __GCDSwift__ requires Swift 2.0.
 
-For usage examples, see [GCDSwiftTests.m](https://github.com/mjmsmith/gcdswift/blob/master/GCDSwiftTests/GCDSwiftTests.swift).
+For usage examples, see [GCDSwiftTests.swift](https://github.com/mjmsmith/gcdswift/blob/master/GCDSwiftTests/GCDSwiftTests.swift).
 
 ## GCDQueue
 
