@@ -1,24 +1,17 @@
-//
-//  GCDSwiftTests.swift
-//  GCDSwiftTests
-//
-//  Created by Mark Smith on 6/2/14.
-//  Copyright (c) 2014 Camazotz Limited. All rights reserved.
-//
-
 import XCTest
+import GCDSwift
 
 class GCDSwiftTests: XCTestCase {
 
   func testMainQueue() {
-    XCTAssertEqual(GCDQueue.mainQueue.dispatchQueue, dispatch_get_main_queue())
+    XCTAssertTrue(GCDQueue.mainQueue.dispatchQueue === dispatch_get_main_queue())
   }
 
   func testGlobalQueues() {
-    XCTAssertEqual(GCDQueue.globalQueue.dispatchQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
-    XCTAssertEqual(GCDQueue.highPriorityGlobalQueue.dispatchQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
-    XCTAssertEqual(GCDQueue.lowPriorityGlobalQueue.dispatchQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0))
-    XCTAssertEqual(GCDQueue.backgroundPriorityGlobalQueue.dispatchQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
+    XCTAssertTrue(GCDQueue.globalQueue.dispatchQueue === dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
+    XCTAssertTrue(GCDQueue.highPriorityGlobalQueue.dispatchQueue === dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+    XCTAssertTrue(GCDQueue.lowPriorityGlobalQueue.dispatchQueue === dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0))
+    XCTAssertTrue(GCDQueue.backgroundPriorityGlobalQueue.dispatchQueue === dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
   }
   
   func testQueueBlock() {
@@ -67,23 +60,21 @@ class GCDSwiftTests: XCTestCase {
   }
   
   func testQueueAndAwaitBlockIterationCount() {
-    let queue = GCDQueue.initConcurrent()
+    let queue = GCDQueue.concurrentQueue()
     var val: Int32 = 0
-    let pVal: CMutablePointer = &val
     
-    queue.queueAndAwaitBlock({ i in OSAtomicIncrement32(UnsafePointer<Int32>(pVal)); return }, iterationCount: 100)
+    queue.queueAndAwaitBlock({ i in OSAtomicIncrement32(&val); return }, iterationCount: 100)
 
     XCTAssertEqual(val, 100)
   }
 
   func testQueueBlockInGroup() {
-    let queue = GCDQueue.initConcurrent()
+    let queue = GCDQueue.concurrentQueue()
     let group = GCDGroup()
     var val: Int32 = 0
-    let pVal: CMutablePointer = &val
     
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(UnsafePointer<Int32>(pVal)); return }, inGroup: group)
+      queue.queueBlock({ OSAtomicIncrement32(&val); return }, inGroup: group)
     }
   
     group.wait()
@@ -91,15 +82,14 @@ class GCDSwiftTests: XCTestCase {
   }
 
   func testQueueNotifyBlockForGroup() {
-    let queue = GCDQueue.initConcurrent()
+    let queue = GCDQueue.concurrentQueue()
     let semaphore = GCDSemaphore()
     let group = GCDGroup()
     var val: Int32 = 0
-    let pVal: CMutablePointer = &val
     var notifyVal: Int32 = 0
 
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(UnsafePointer<Int32>(pVal)); return }, inGroup: group)
+      queue.queueBlock({ OSAtomicIncrement32(&val); return }, inGroup: group)
     }
     
     queue.queueNotifyBlock({
@@ -112,21 +102,20 @@ class GCDSwiftTests: XCTestCase {
   }
   
   func testQueueBarrierBlock() {
-    let queue = GCDQueue.initConcurrent()
+    let queue = GCDQueue.concurrentQueue()
     let semaphore = GCDSemaphore()
     var val: Int32 = 0
-    let pVal: CMutablePointer = &val
     var barrierVal: Int32 = 0
 
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(UnsafePointer<Int32>(pVal)); return })
+      queue.queueBlock({ OSAtomicIncrement32(&val); return })
     }
     queue.queueBarrierBlock({
       barrierVal = val
       semaphore.signal()
     })
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(UnsafePointer<Int32>(pVal)); return })
+      queue.queueBlock({ OSAtomicIncrement32(&val); return })
     }
 
     semaphore.wait()
@@ -134,12 +123,11 @@ class GCDSwiftTests: XCTestCase {
   }
 
   func testQueueAndAwaitBarrierBlock() {
-    let queue = GCDQueue.initConcurrent()
+    let queue = GCDQueue.concurrentQueue()
     var val: Int32 = 0
-    let pVal: CMutablePointer = &val
 
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(UnsafePointer<Int32>(pVal)); return })
+      queue.queueBlock({ OSAtomicIncrement32(&val); return })
     }
     queue.queueAndAwaitBarrierBlock({})
     XCTAssertEqual(val, 100)

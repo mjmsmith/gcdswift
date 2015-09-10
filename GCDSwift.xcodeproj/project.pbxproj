@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DA8AD45193D22EB006D2C36 /* GCDSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DA8AD44193D22EB006D2C36 /* GCDSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DA8AD4B193D22EB006D2C36 /* GCDSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DA8AD3F193D22EB006D2C36 /* GCDSwift.framework */; };
 		4DA8AD52193D22EB006D2C36 /* GCDSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA8AD51193D22EB006D2C36 /* GCDSwiftTests.swift */; };
 		4DA8AD5C193D23C6006D2C36 /* GCDSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA8AD5B193D23C6006D2C36 /* GCDSemaphore.swift */; };
@@ -33,7 +32,6 @@
 /* Begin PBXFileReference section */
 		4DA8AD3F193D22EB006D2C36 /* GCDSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GCDSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DA8AD43193D22EB006D2C36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DA8AD44193D22EB006D2C36 /* GCDSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDSwift.h; sourceTree = "<group>"; };
 		4DA8AD4A193D22EB006D2C36 /* GCDSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GCDSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DA8AD50193D22EB006D2C36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DA8AD51193D22EB006D2C36 /* GCDSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDSwiftTests.swift; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				4DA8AD5E193D271F006D2C36 /* GCDGroup.swift */,
 				4DA8AD61193D27DB006D2C36 /* GCDQueue.swift */,
 				4DA8AD5B193D23C6006D2C36 /* GCDSemaphore.swift */,
-				4DA8AD44193D22EB006D2C36 /* GCDSwift.h */,
 				4DA8AD42193D22EB006D2C36 /* Supporting Files */,
 			);
 			path = GCDSwift;
@@ -125,7 +122,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DA8AD45193D22EB006D2C36 /* GCDSwift.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +170,7 @@
 		4DA8AD36193D22EB006D2C36 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Camazotz Limited";
 				TargetAttributes = {

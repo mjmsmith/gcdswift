@@ -1,42 +1,34 @@
-//
-//  GCDGroup.swift
-//  GCDSwift
-//
-//  Created by Mark Smith on 6/2/14.
-//  Copyright (c) 2014 Camazotz Limited. All rights reserved.
-//
-
 import Foundation
 
-class GCDGroup {
-  let dispatchGroup: dispatch_group_t
+public class GCDGroup {
+  public let dispatchGroup: dispatch_group_t
   
-  // Lifecycle.
+  // MARK: Lifecycle
   
-  convenience init() {
+  public convenience init() {
     self.init(dispatchGroup: dispatch_group_create())
   }
   
-  init(dispatchGroup: dispatch_group_t) {
+  public init(dispatchGroup: dispatch_group_t) {
     self.dispatchGroup = dispatchGroup
   }
   
-  // Public methods.
+  // MARK: Public methods
   
-  func enter() {
+  public func enter() {
     return dispatch_group_enter(self.dispatchGroup)
   }
 
-  func leave() {
+  public func leave() {
     return dispatch_group_leave(self.dispatchGroup)
   }
 
-  func wait() {
+  public func wait() {
     dispatch_group_wait(self.dispatchGroup, DISPATCH_TIME_FOREVER)
   }
   
-  func wait(seconds: Double) -> Bool {
-    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(NanosecondsPerSecond)))
+  public func wait(seconds: Double) -> Bool {
+    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(GCDConstants.NanosecondsPerSecond)))
     
     return dispatch_group_wait(self.dispatchGroup, time) == 0
   }
