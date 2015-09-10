@@ -66,7 +66,7 @@ func queueNotifyBlock(block: dispatch_block_t, inGroup group: GCDGroup)
 
 * suspending and resuming a queue
 
-```objc
+```swift
 func suspend()
 func resume()
 ```
