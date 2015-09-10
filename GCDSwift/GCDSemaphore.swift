@@ -27,7 +27,7 @@ public class GCDSemaphore {
   *  - returns: The initialized instance.
   *  - SeeAlso: dispatch_semaphore_create()
   */
-  public convenience init(value: CLong) {
+  public convenience init(value: Int) {
     self.init(dispatchSemaphore: dispatch_semaphore_create(value))
   }
 
