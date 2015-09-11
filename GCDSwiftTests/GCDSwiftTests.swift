@@ -44,8 +44,7 @@ class GCDSwiftTests: XCTestCase {
     XCTAssertEqual(val, 1)
     
     let now = NSDate()
-    XCTAssertTrue(now.timeIntervalSinceDate(then) > 0.4)
-    XCTAssertTrue(now.timeIntervalSinceDate(then) < 0.6)
+    XCTAssertTrue(now.timeIntervalSinceDate(then) > 0.4 && now.timeIntervalSinceDate(then) < 0.6)
   }
   
   func testQueueAndAwaitBlock() {
@@ -63,7 +62,7 @@ class GCDSwiftTests: XCTestCase {
     let queue = GCDQueue.concurrentQueue()
     var val: Int32 = 0
     
-    queue.queueAndAwaitBlock({ i in OSAtomicIncrement32(&val); return }, iterationCount: 100)
+    queue.queueAndAwaitBlock({ _ in OSAtomicIncrement32(&val) }, iterationCount: 100)
 
     XCTAssertEqual(val, 100)
   }
@@ -74,7 +73,7 @@ class GCDSwiftTests: XCTestCase {
     var val: Int32 = 0
     
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(&val); return }, inGroup: group)
+      queue.queueBlock({ OSAtomicIncrement32(&val) }, inGroup: group)
     }
   
     group.wait()
@@ -89,7 +88,7 @@ class GCDSwiftTests: XCTestCase {
     var notifyVal: Int32 = 0
 
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(&val); return }, inGroup: group)
+      queue.queueBlock({ OSAtomicIncrement32(&val) }, inGroup: group)
     }
     
     queue.queueNotifyBlock({
@@ -108,14 +107,14 @@ class GCDSwiftTests: XCTestCase {
     var barrierVal: Int32 = 0
 
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(&val); return })
+      queue.queueBlock({ OSAtomicIncrement32(&val) })
     }
     queue.queueBarrierBlock({
       barrierVal = val
       semaphore.signal()
     })
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(&val); return })
+      queue.queueBlock({ OSAtomicIncrement32(&val) })
     }
 
     semaphore.wait()
@@ -127,7 +126,7 @@ class GCDSwiftTests: XCTestCase {
     var val: Int32 = 0
 
     for (var i = 0; i < 100; ++i) {
-      queue.queueBlock({ OSAtomicIncrement32(&val); return })
+      queue.queueBlock({ OSAtomicIncrement32(&val) })
     }
     queue.queueAndAwaitBarrierBlock({})
     XCTAssertEqual(val, 100)
