@@ -79,7 +79,7 @@ Semaphores are implemented in the __GCDSemaphore__ class.
 
 ```swift
 GCDSemaphore()
-GCDSemaphore(value: CLong)
+GCDSemaphore(value: Int)
 ```
 
 * signaling and waiting on a semaphore
