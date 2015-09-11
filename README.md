@@ -15,6 +15,12 @@ __GCDSwift__ requires Swift 2.0.
 
 For usage examples, see [GCDSwiftTests.swift](https://github.com/mjmsmith/gcdswift/blob/master/GCDSwiftTests/GCDSwiftTests.swift).
 
+Install via CocoaPods:
+
+```ruby
+pod "GCDSwift"
+```
+
 ## GCDQueue
 
 Queues are implemented in the __GCDQueue__ class.
