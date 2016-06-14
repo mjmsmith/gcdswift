@@ -2,7 +2,7 @@
 
 ## GCDSwift is no longer supported. For iOS 10+, use the [Dispatch](https://developer.apple.com/reference/dispatch) framework.
 
-****GCDSwift is a Swift wrapper for the most commonly used features of Grand Central Dispatch.  It has four main aims:
+GCDSwift is a Swift wrapper for the most commonly used features of Grand Central Dispatch.  It has four main aims:
 
 * Organize the flat C API into appropriate classes.
 * Use intention-revealing names to distinguish between synchronous and asynchronous functions. 
